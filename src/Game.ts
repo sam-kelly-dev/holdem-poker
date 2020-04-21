@@ -232,7 +232,7 @@ export class Game{
      */
     endRound():void{
         if(!this.round.length) throw new Error("Game round not started");
-        if(this.table.length>=3) throw new Error("Round is over, please invoke checkResult");
+        if(this.table.length>=5) throw new Error("Round is over, please invoke checkResult");
         let last_amount=-1;
         let pot=0;
         for(let i=0;i<this.round.length;i++){
@@ -245,7 +245,14 @@ export class Game{
             pot+=money;
         }
         this.pot+=pot;
-        this.table.push(this.deck.getCards(1)[0]);
+        let n = 1;
+        if (this.table.length < 3) {
+            n = 3
+        }
+        let j = 0;
+        for(j = 0; j < n; j++){
+            this.table.push(this.deck.getCards(1)[0]);
+        }
     }
     /**
      * Returns the result of the current round
